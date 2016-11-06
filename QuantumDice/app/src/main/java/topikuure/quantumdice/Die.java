@@ -9,9 +9,9 @@ public class Die {
 
     public int sides = 6;
 
-    public void roll() {
+    public void roll() {//TODO implementoi
     }
 
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas) {//TODO implementoi
     }
 }
