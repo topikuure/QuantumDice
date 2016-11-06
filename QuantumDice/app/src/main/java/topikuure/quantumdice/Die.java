@@ -24,6 +24,9 @@ public class Die {
 
         numberPaint.setColor(Color.BLACK);
         numberPaint.setStyle(Paint.Style.STROKE);
+        numberPaint.setTextAlign(Paint.Align.CENTER);
+        numberPaint.setAntiAlias(true);
+        numberPaint.setTextSize(size / 2f);
 
         destinationRect = new RectF(x, y, x + size, y + size);
     }
