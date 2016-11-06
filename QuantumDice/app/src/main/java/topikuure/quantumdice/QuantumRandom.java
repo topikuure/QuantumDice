@@ -5,7 +5,9 @@ package topikuure.quantumdice;
  */
 public class QuantumRandom {
 
+    private int testi = 0;
+
     public int getRandomNumber(int min, int max) {//TODO implementoi
-        return 0;
+        return testi++;
     }
 }

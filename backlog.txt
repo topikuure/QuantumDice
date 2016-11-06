@@ -3,7 +3,7 @@
 
 
 +Tee kaikkien luokkien rajapinnat valmiiksi
--Rakenna ohjelman logiikka korkeammalla tasolla
++Rakenna ohjelman logiikka korkeammalla tasolla
 -Toteuta QuantumRandom-luokan getRandomNumber-metodi. Käytä bufferia random-luvuille koska JSON-API palauttaa listan lukuja, eikä haluta tehdä http-kutsua jokaisella funktiokutsulla.
 -Toteuta metodi JSON-datan parseamiselle QuantumRandom-luokkassa.
 -Toteuta random-lukujen hakeminen netistä http-kutsulla
