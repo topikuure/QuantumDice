@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by Topi on 06/11/2016.
  *
- * 6-sivuinen noppa, joka pyörii ja tärisyttää puhelinta roll-metodilla, ja piirtyy draw-metodilla.
+ * 6-sivuinen noppa, joka pyörii roll-metodilla, ja piirtyy draw-metodilla.
  * Noppa piirtää myös ilmoituksen jos ei onnistuttu hakemaan kvanttifysiikan lakien avulla generoituja randomlukuja netistä.
  * Tällöin noppa hakee luvun Random-luokasta, joka generoi pseudorandomeja lukuja.
  */

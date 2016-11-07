@@ -62,12 +62,12 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
     public QuantumRandom() {
         Log.d("QuantumRandom", "constructor");
 
-        String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + Integer.toString(STACK_SIZE * 2) + "&type=uint8";
+        final String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + Integer.toString(STACK_SIZE * 2) + "&type=uint8";
 
         JSONParser jsonParser = new JSONParser();
         jsonParser.getJSONFromUrl(url, new JSONParser.CallbackInterface() {
             @Override
-            public void onCallBack(JSONObject jsonObject) {
+            public void onParsed(JSONObject jsonObject) {
                 try {
                     if (jsonObject.getString("success").equals("true")) {
                         JSONArray data = jsonObject.getJSONArray("data");
@@ -126,8 +126,8 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
     }
 
     @Override
-    public void onCallBack(JSONObject jsonObject) {
-        Log.d("QuantumRandom", "onCallBack");
+    public void onParsed(JSONObject jsonObject) {
+        Log.d("QuantumRandom", "onParsed");
 
         IntegerStack backStack;
 

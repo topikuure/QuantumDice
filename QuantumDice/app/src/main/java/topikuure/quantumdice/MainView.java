@@ -28,8 +28,9 @@ public class MainView extends View implements View.OnClickListener {
             return null;
         }
 
+        @Override
         protected void onPostExecute(Void result) {
-            mainView.quantumRandomInitialized();
+            mainView.onQuantumRandomInitialized();
         }
     }
 
@@ -51,9 +52,8 @@ public class MainView extends View implements View.OnClickListener {
 
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
-
         if(!quantumRandom.isInitialized()) new QuantumRandomInitializationTask(quantumRandom, this).execute();
-        else quantumRandomInitialized();
+        else onQuantumRandomInitialized();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class MainView extends View implements View.OnClickListener {
         die.draw(canvas);
     }
 
-    void quantumRandomInitialized() {
+    void onQuantumRandomInitialized() {
         vibratorIsOn = true;
         die.roll();
         invalidate();

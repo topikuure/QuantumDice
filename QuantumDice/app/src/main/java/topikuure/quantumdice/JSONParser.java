@@ -18,7 +18,8 @@ import javax.net.ssl.HttpsURLConnection;
 public class JSONParser {
 
     public interface CallbackInterface {
-        void onCallBack(JSONObject json);
+
+        void onParsed(JSONObject json);
     }
 
     static InputStream inputStream = null;
@@ -81,8 +82,9 @@ public class JSONParser {
             return jsonObject;
         }
 
+        @Override
         protected void onPostExecute(JSONObject result) {
-            callbackInterface.onCallBack(result);
+            callbackInterface.onParsed(result);
         }
     }
 }
