@@ -1,12 +1,16 @@
 package topikuure.quantumdice;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
-import android.util.Log;
+
+import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by Topi on 06/11/2016.
@@ -17,9 +21,9 @@ public class JSONParser {
         void onCallBack(JSONObject json);
     }
 
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
+    static InputStream inputStream = null;
+    static JSONObject jsonObject = null;
+    static String jsonString = "";
 
     public void getJSONFromUrl(String url, JSONParserCallbackInterface callbackInterface) {
         new GetJSONFromUrlTask(callbackInterface).execute(url);
@@ -34,63 +38,61 @@ public class JSONParser {
         }
 
         @Override
-        protected JSONObject doInBackground(String[] params) {//TODO implementoi
-/*
-            final String url = params[0];
+        protected JSONObject doInBackground(String[] params) {
+            final String urlString = params[0];
 
-            // Making HTTP request
+            //Haetaan data netistä
+            URL url;
+
             try {
-                // defaultHttpClient
-                DefaultHttpClient httpClient = new DefaultHttpClient();
-                HttpPost httpPost = new HttpPost(url);
-
-                HttpResponse httpResponse = httpClient.execute(httpPost);
-                HttpEntity httpEntity = httpResponse.getEntity();
-                is = httpEntity.getContent();
-
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                url = new URL(urlString);
+                HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
+                inputStream = httpsURLConnection.getInputStream();
+            }
+            catch(Exception exception) {
+                exception.printStackTrace();
+                return null;
             }
 
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        is, "iso-8859-1"), 8);
-                StringBuilder sb = new StringBuilder();
+                        inputStream, "iso-8859-1"), 8);
+                StringBuilder stringBuilder = new StringBuilder();
                 String line = null;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    stringBuilder.append(line + "\n");
                 }
-                is.close();
-                json = sb.toString();
-            } catch (Exception e) {
-                Log.e("IntegerStack Error", "Error converting result " + e.toString());
+                inputStream.close();
+                jsonString = stringBuilder.toString();
+            } catch (Exception exception) {
+                exception.printStackTrace();
+                return null;
             }
 
             // try parse the string to a JSON object
             try {
-                jObj = new JSONObject(json);
-            } catch (JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
+                jsonObject = new JSONObject(jsonString);
+            } catch (JSONException exception) {
+                exception.printStackTrace();
+                return null;
             }
 
-            return jObj;
-*/
+            return jsonObject;
+
+/*
             //Testi JSON local String->
             final String onSuccess = "{\"type\":\"uint8\",\"length\":10,\"data\":[48,223,28,238,228,72,151,179,168,2],\"success\":true}";
             final String onFailure = "{\"success\":false}";
 
             try {
-                jObj = new JSONObject(onSuccess);
+                jsonObject = new JSONObject(onSuccess);
             }
             catch(JSONException e) {
                 Log.e("JSON Parser", "Error parsing data " + e.toString());
             }
-            return jObj;
+            return jsonObject;
             //<-Testi JSON local String
+*/
         }
 
         protected void onPostExecute(JSONObject result) {

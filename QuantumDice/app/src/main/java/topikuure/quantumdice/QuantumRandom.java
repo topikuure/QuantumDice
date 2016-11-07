@@ -3,7 +3,6 @@ package topikuure.quantumdice;
 import android.util.Log;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -66,14 +65,15 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
         }
 
         //Testipalautus
-        return currentStack.pop();
+        //return currentStack.pop();
 
         //Oikea palautus
-        //return (currentStack.pop() % (max - min + 1)) + min;
+        return (currentStack.pop() % (max - min + 1)) + min;
     }
 
     private boolean fillBackStack() {
-        Log.i("QuantumRandom", "fillBackStack");
+        Log.d("QuantumRandom", "fillBackStack");
+
         String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + arrayLength + "&type=uint8";
 
         JSONParser jsonParser = new JSONParser();
@@ -83,14 +83,16 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
     }
 
     public void swapStacks() {
-        Log.i("QuantumRandom", "swapStacks");
+        Log.d("QuantumRandom", "swapStacks");
 
         if(currentStack.id == stack1.id) currentStack = stack2;
         else if(currentStack.id == stack2.id) currentStack = stack1;
     }
 
     @Override
-    public void onCallBack(JSONObject json) {
+    public void onCallBack(JSONObject jsonObject) {
+        Log.d("QuantumRandom", "onCallBack");
+
         IntegerStack backStack;
 
         if(currentStack.id == stack1.id) backStack = stack2;
@@ -101,9 +103,9 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
         }
 
         try {
-            if(json.getString("success").equals("true")) {
+            if(jsonObject.getString("success").equals("true")) {
                 backStack.clear();
-                JSONArray data = json.getJSONArray("data");
+                JSONArray data = jsonObject.getJSONArray("data");
 
                 for(int i = 0; i < STACK_SIZE; ++i) {
                     backStack.push(data.getInt(i));
@@ -111,7 +113,7 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
             }
             else Log.e("QuantumRandom", "JSON call failed");//TODO jos serveri kaatunut tms., käytä Javan pseudo random generaattoria
         }
-        catch(JSONException exception) {
+        catch(Exception exception) {
             exception.printStackTrace();
         }
     }

@@ -8,8 +8,8 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + Rakenna ohjelman logiikka korkeammalla tasolla
 + Toteuta QuantumRandom-luokan getRandomNumber-metodi. Käytä bufferia random-luvuille koska JSON-API palauttaa listan lukuja, eikä haluta tehdä http-kutsua jokaisella funktiokutsulla.
 + Tee JSONParser-luokka, ja sen parseamis-toiminto
++ Toteuta random-lukujen hakeminen netistä http-kutsulla
 
-- Toteuta random-lukujen hakeminen netistä http-kutsulla
 - Soita nopanpyörimisääni kun noppaa pyöritetään
 - Tärisytä puhelinta kun noppaa pyöritetään
 - Hae random-luvut Javan Math.random() funktiolla jos serveriin ei saada yhteyttä
