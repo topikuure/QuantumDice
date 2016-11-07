@@ -17,7 +17,6 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
     private class IntegerStack {
 
         public int id;
-        public boolean isFresh = false;
 
         private int topIndex = -1;
         private int buffer[];
@@ -34,7 +33,6 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
 
         public int pop() {
             //Palauttaa alimman luvun jos pino on tyhjä
-            isFresh = false;
             if(topIndex < 0) topIndex = 0;
             return buffer[topIndex--];
         }
@@ -110,7 +108,6 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
                 for(int i = 0; i < STACK_SIZE; ++i) {
                     backStack.push(data.getInt(i));
                 }
-                backStack.isFresh = true;
             }
             else Log.e("QuantumRandom", "JSON call failed");//TODO jos serveri kaatunut tms., käytä Javan pseudo random generaattoria
         }
