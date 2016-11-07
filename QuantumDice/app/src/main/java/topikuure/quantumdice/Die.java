@@ -1,12 +1,9 @@
 package topikuure.quantumdice;
 
-import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Vibrator;
-
 import java.util.Random;
 
 /**
@@ -29,9 +26,8 @@ public class Die {
 
     private boolean usingQuantumRandom = true;
     private RectF destinationRect;
-    private Vibrator vibrator;
 
-    public Die(Context context, QuantumRandom quantumRandom, float x, float y, float size) {
+    public Die(QuantumRandom quantumRandom, float x, float y, float size) {
         this.quantumRandom = quantumRandom;
 
         backgroundPaint.setColor(Color.WHITE);
@@ -56,13 +52,9 @@ public class Die {
         textPaint.setTextSize(size / 14f);
 
         destinationRect = new RectF(x, y, x + size, y + size);
-
-        vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     public void roll() {
-        vibrator.vibrate(80);
-
         try {
             currentNumber = quantumRandom.getRandomNumber(1, sides);
             usingQuantumRandom = true;
