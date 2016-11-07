@@ -16,22 +16,27 @@ import java.util.Random;
  * Noppa piirtää myös ilmoituksen jos ei onnistuttu hakemaan kvanttifysiikan lakien avulla generoituja randomlukuja netistä.
  * Tällöin noppa hakee luvun Random-luokasta, joka generoi pseudorandomeja lukuja.
  */
-public class Die {
+public class Die implements QuantumRandom.CallbackInterfacce {
+
+    private static final Object lock = new Object();
+    private boolean isInitialized = false;
 
     private int sides = 6;
     private int currentNumber = 1;
 
-    private QuantumRandom quantumRandom = new QuantumRandom();
+    private QuantumRandom quantumRandom;
 
     private Paint backgroundPaint = new Paint();
     private Paint numberPaint = new Paint();
-    private Paint errorPaint = new Paint();
+    private Paint textPaint = new Paint();
 
     private boolean usingQuantumRandom = true;
     private RectF destinationRect;
     private Vibrator vibrator;
 
     public Die(Context context, float x, float y, float size) {
+        quantumRandom = new QuantumRandom(this);
+
         backgroundPaint.setColor(Color.WHITE);
         backgroundPaint.setStyle(Paint.Style.FILL);
 
@@ -47,11 +52,11 @@ public class Die {
         numberPaint.setAntiAlias(true);
         numberPaint.setTextSize(size / 1.5f);
 
-        errorPaint.setColor(Color.YELLOW);
-        errorPaint.setStyle(Paint.Style.STROKE);
-        errorPaint.setTextAlign(Paint.Align.CENTER);
-        errorPaint.setAntiAlias(true);
-        errorPaint.setTextSize(size / 14f);
+        textPaint.setColor(Color.YELLOW);
+        textPaint.setStyle(Paint.Style.STROKE);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextSize(size / 14f);
 
         destinationRect = new RectF(x, y, x + size, y + size);
 
@@ -73,18 +78,35 @@ public class Die {
     }
 
     public void draw(Canvas canvas) {
+        synchronized(lock) {
+            if(!isInitialized) {
+                canvas.drawText("LOADING...",
+                    destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
+                    textPaint);
+                return;
+            }
+        }
         canvas.drawRect(destinationRect, backgroundPaint);
         canvas.drawText(Integer.toString(currentNumber),
-            destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2) ,
+            destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
             numberPaint);
 
         if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus(?) ja tekstit resource stringeiksi.
             canvas.drawText("Out of quantum random numbers",
-                    destinationRect.centerX(), destinationRect.bottom + errorPaint.getTextSize(),
-                    errorPaint);
+                    destinationRect.centerX(), destinationRect.bottom + textPaint.getTextSize(),
+                    textPaint);
             canvas.drawText("Using pseudo random numbers!",
-                destinationRect.centerX(), destinationRect.bottom + (errorPaint.getTextSize() * 2f),
-                errorPaint);
+                destinationRect.centerX(), destinationRect.bottom + (textPaint.getTextSize() * 2f),
+                    textPaint);
+        }
+    }
+
+    @Override
+    public void onInitialized(boolean success) {
+        if(success) {
+            synchronized(lock) {
+                isInitialized = true;
+            }
         }
     }
 }

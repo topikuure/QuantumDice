@@ -12,9 +12,9 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + Hae random-luvut Javan Random.nextInt funktiolla jos serveriin ei saada yhteyttä
 + Nopan grafiikat hyväksyttävän näköisiksi
 + Tärisytä puhelinta kun noppaa pyöritetään
++ Näytä latausruutu kun QuantumRandom täyttää pinonsa ensimmäistä kertaa
 
-- Näytä latausruutu kun QuantumRandom täyttää pinonsa ensimmäistä kertaa
 - Soita nopanpyörimisääni kun noppaa pyöritetään
-- Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers...)
+- Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers jne.)
 - Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
 - Anna käyttäjän valita montako/minkälaisia noppia halutaan pyörittää
