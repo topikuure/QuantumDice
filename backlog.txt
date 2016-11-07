@@ -1,11 +1,17 @@
-- == tekemättä
+Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prioriteetti). Uudet tehtävät lisätään listan alapuolelle.
+
 + == valmis
+- == tekemättä
 
 
-+ Tee kaikkien luokkien rajapinnat valmiiksi
++ Tee kaikkien alustavassa suunnitelmassa olevien luokkien rajapinnat valmiiksi
 + Rakenna ohjelman logiikka korkeammalla tasolla
 + Toteuta QuantumRandom-luokan getRandomNumber-metodi. Käytä bufferia random-luvuille koska JSON-API palauttaa listan lukuja, eikä haluta tehdä http-kutsua jokaisella funktiokutsulla.
 + Tee JSONParser-luokka, ja sen parseamis-toiminto
+
 - Toteuta random-lukujen hakeminen netistä http-kutsulla
 - Soita nopanpyörimisääni kun noppaa pyöritetään
+- Tärisytä puhelinta kun noppaa pyöritetään
 - Hae random-luvut Javan Math.random() funktiolla jos serveriin ei saada yhteyttä
+- Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
+- Anna käyttäjän valita montako/minkälaisia noppia halutaan pyörittää
