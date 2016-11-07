@@ -16,13 +16,10 @@ import java.util.Random;
  * Noppa piirtää myös ilmoituksen jos ei onnistuttu hakemaan kvanttifysiikan lakien avulla generoituja randomlukuja netistä.
  * Tällöin noppa hakee luvun Random-luokasta, joka generoi pseudorandomeja lukuja.
  */
-public class Die implements QuantumRandom.CallbackInterface {
-
-    private static final Object lock = new Object();
-    private boolean isInitialized = false;
+public class Die {
 
     private int sides = 6;
-    private int currentNumber = 1;
+    private int currentNumber;
 
     private QuantumRandom quantumRandom;
 
@@ -34,8 +31,8 @@ public class Die implements QuantumRandom.CallbackInterface {
     private RectF destinationRect;
     private Vibrator vibrator;
 
-    public Die(Context context, float x, float y, float size) {
-        quantumRandom = new QuantumRandom(this);
+    public Die(Context context, QuantumRandom quantumRandom, float x, float y, float size) {
+        this.quantumRandom = quantumRandom;
 
         backgroundPaint.setColor(Color.WHITE);
         backgroundPaint.setStyle(Paint.Style.FILL);
@@ -78,13 +75,11 @@ public class Die implements QuantumRandom.CallbackInterface {
     }
 
     public void draw(Canvas canvas) {
-        synchronized(lock) {
-            if(!isInitialized) {
-                canvas.drawText("LOADING...",
-                    destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
-                    textPaint);
-                return;
-            }
+        if(!quantumRandom.isInitialized()) {
+            canvas.drawText("LOADING...",
+                destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
+                textPaint);
+            return;
         }
         canvas.drawRect(destinationRect, backgroundPaint);
         canvas.drawText(Integer.toString(currentNumber),
@@ -98,15 +93,6 @@ public class Die implements QuantumRandom.CallbackInterface {
             canvas.drawText("Using pseudo random numbers!",
                 destinationRect.centerX(), destinationRect.bottom + (textPaint.getTextSize() * 2f),
                     textPaint);
-        }
-    }
-
-    @Override
-    public void onInitialized(boolean success) {
-        if(success) {
-            synchronized(lock) {
-                isInitialized = true;
-            }
         }
     }
 }

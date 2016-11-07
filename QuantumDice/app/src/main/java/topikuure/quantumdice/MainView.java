@@ -12,7 +12,7 @@ public class MainView extends View implements View.OnClickListener {
 
     private Die die;
 
-    public MainView(Context context, int screenWidth, int screenHeight) {
+    public MainView(Context context, QuantumRandom quantumRandom, int screenWidth, int screenHeight) {
         super(context);
         setOnClickListener(this);
 
@@ -21,7 +21,7 @@ public class MainView extends View implements View.OnClickListener {
         if(screenWidth <= screenHeight) dieSize = (float)(screenWidth - 80);
         else dieSize = (float)(screenHeight - 80);
 
-        die = new Die(context, 40f, 40f, dieSize);
+        die = new Die(context, quantumRandom, 40f, 40f, dieSize);
     }
 
     @Override

@@ -53,6 +53,9 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
         }
     }
 
+    private static final Object lock = new Object();
+    private boolean isInitialized = false;
+
     private static final int STACK_SIZE = 10;
     private static final String arrayLength = Integer.toString(STACK_SIZE);
 
@@ -60,7 +63,7 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
     private IntegerStack stack2 = new IntegerStack(2, STACK_SIZE);
     private IntegerStack currentStack = stack1;
 
-    public QuantumRandom(final CallbackInterface callbackInterface) {
+    public QuantumRandom() {
         Log.d("QuantumRandom", "constructor");
 
         String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + Integer.toString(STACK_SIZE * 2) + "&type=uint8";
@@ -81,15 +84,23 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
                         }
                     } else {
                         Log.e("QuantumRandom", "JSON call failed");
-                        callbackInterface.onInitialized(false);
+                        return;
                     }
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    callbackInterface.onInitialized(false);
+                    return;
                 }
-                callbackInterface.onInitialized(true);
+                synchronized (lock) {
+                    isInitialized = true;
+                }
             }
         });
+    }
+
+    public boolean isInitialized() {
+        synchronized (lock) {
+            return isInitialized;
+        }
     }
 
     public int getRandomNumber(int min, int max) throws Exception {

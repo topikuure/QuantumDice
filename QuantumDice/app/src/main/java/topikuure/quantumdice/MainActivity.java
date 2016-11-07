@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
         Point screenSize = new Point();
         getWindowManager().getDefaultDisplay().getSize(screenSize);
 
-        setContentView(new MainView(this, screenSize.x, screenSize.y));
+        setContentView(new MainView(this, ((QuantumDiceApplication)getApplication()).quantumRandom,
+            screenSize.x, screenSize.y));
     }
 }
