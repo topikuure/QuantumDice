@@ -52,8 +52,7 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
     private IntegerStack stack2 = new IntegerStack(2, STACK_SIZE);
     private IntegerStack currentStack = stack1;
 
-    public QuantumRandom() {
-        //Optimoinnin paikka. Molemmat stackit voisi täyttää aluksi yhdellä http-kutsulla (fillBothStacks-metodi tjsp.)
+    public QuantumRandom() {//TODO Optimointia. Molemmat stackit voisi täyttää aluksi yhdellä http-kutsulla (fillBothStacks-metodi tms.)
         fillBackStack();
         swapStacks();
         fillBackStack();

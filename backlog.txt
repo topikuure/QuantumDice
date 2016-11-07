@@ -13,5 +13,6 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 
 - Soita nopanpyörimisääni kun noppaa pyöritetään
 - Tärisytä puhelinta kun noppaa pyöritetään
+- Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers...)
 - Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
 - Anna käyttäjän valita montako/minkälaisia noppia halutaan pyörittää

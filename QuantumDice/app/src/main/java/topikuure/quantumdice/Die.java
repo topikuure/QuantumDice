@@ -66,7 +66,7 @@ public class Die {
             destinationRect.centerX(), destinationRect.centerY(),
             numberPaint);
 
-        if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus
+        if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus ja tekstit resource stringeiksi.
             canvas.drawText("Out of quantum random numbers",
                     destinationRect.centerX(), destinationRect.bottom + errorPaint.getTextSize(),
                     errorPaint);
