@@ -23,7 +23,7 @@ public class MainView extends View implements View.OnClickListener {
         if(screenWidth <= screenHeight) dieSize = (float)(screenWidth - 80);
         else dieSize = (float)(screenHeight - 80);
 
-        die = new Die(40f, 40f, dieSize);
+        die = new Die(context, 40f, 40f, dieSize);
     }
 
     @Override

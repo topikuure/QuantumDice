@@ -11,9 +11,9 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + Toteuta random-lukujen hakeminen netistä http-kutsulla
 + Hae random-luvut Javan Math.random() funktiolla jos serveriin ei saada yhteyttä
 + Nopan grafiikat hyväksyttävän näköisiksi
++ Tärisytä puhelinta kun noppaa pyöritetään
 
 - Soita nopanpyörimisääni kun noppaa pyöritetään
-- Tärisytä puhelinta kun noppaa pyöritetään
 - Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers...)
 - Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
 - Anna käyttäjän valita montako/minkälaisia noppia halutaan pyörittää
