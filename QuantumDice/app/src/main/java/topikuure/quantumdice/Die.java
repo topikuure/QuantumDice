@@ -11,18 +11,23 @@ import java.util.Random;
 
 /**
  * Created by Topi on 06/11/2016.
+ *
+ * 6-sivuinen noppa, joka pyörii ja tärisyttää puhelinta roll-metodilla, ja piirtyy draw-metodilla.
+ * Noppa piirtää myös ilmoituksen jos ei onnistuttu hakemaan kvanttifysiikan lakien avulla generoituja randomlukuja netistä.
+ * Tällöin noppa hakee luvun Random-luokasta, joka generoi pseudorandomeja lukuja.
  */
 public class Die {
 
+    private int sides = 6;
     private int currentNumber = 1;
+
     private QuantumRandom quantumRandom = new QuantumRandom();
+
     private Paint backgroundPaint = new Paint();
     private Paint numberPaint = new Paint();
-
     private Paint errorPaint = new Paint();
-    private boolean usingQuantumRandom = true;
 
-    private int sides = 6;
+    private boolean usingQuantumRandom = true;
     private RectF destinationRect;
     private Vibrator vibrator;
 
@@ -73,7 +78,7 @@ public class Die {
             destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2) ,
             numberPaint);
 
-        if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus ja tekstit resource stringeiksi.
+        if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus(?) ja tekstit resource stringeiksi.
             canvas.drawText("Out of quantum random numbers",
                     destinationRect.centerX(), destinationRect.bottom + errorPaint.getTextSize(),
                     errorPaint);

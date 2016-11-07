@@ -10,6 +10,10 @@ import org.json.JSONObject;
  *
  * QuantumRandom-luokka käyttää QRNG@ANU JSON API -rajapintaa
  * https://qrng.anu.edu.au/API/api-demo.php
+ *
+ * QuantumStack hakee kahteen pinoon random-lukuja JSON-APIn avulla.
+ * Kun käytössä oleva pino tyhjenee, vaihdetaan toinen pino sen paikalle,
+ * ja haetaan tyhjään pinoon uudet luvut omassa säikeessä.
  */
 public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
 
@@ -79,7 +83,7 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
         return false;
     }
 
-    public void swapStacks() {
+    private void swapStacks() {
         Log.d("QuantumRandom", "swapStacks");
 
         if(currentStack.id == stack1.id) currentStack = stack2;
@@ -108,7 +112,7 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
                     backStack.push(data.getInt(i));
                 }
             }
-            else Log.e("QuantumRandom", "JSON call failed");//TODO jos serveri kaatunut tms., käytä Javan pseudo random generaattoria
+            else Log.e("QuantumRandom", "JSON call failed");
         }
         catch(Exception exception) {
             exception.printStackTrace();

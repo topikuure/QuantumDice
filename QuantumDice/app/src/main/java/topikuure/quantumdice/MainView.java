@@ -3,7 +3,6 @@ package topikuure.quantumdice;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.view.View;
 
 /**
@@ -12,7 +11,6 @@ import android.view.View;
 public class MainView extends View implements View.OnClickListener {
 
     private Die die;
-    private int backgroundColor = Color.BLACK;
 
     public MainView(Context context, int screenWidth, int screenHeight) {
         super(context);
@@ -34,7 +32,7 @@ public class MainView extends View implements View.OnClickListener {
 
     @Override
     public void onDraw(Canvas canvas) {
-        canvas.drawColor(backgroundColor);
+        canvas.drawColor(Color.BLACK);
         die.draw(canvas);
     }
 }
