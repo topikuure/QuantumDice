@@ -37,7 +37,7 @@ public class Die {
         numberPaint.setStyle(Paint.Style.STROKE);
         numberPaint.setTextAlign(Paint.Align.CENTER);
         numberPaint.setAntiAlias(true);
-        numberPaint.setTextSize(size / 2f);
+        numberPaint.setTextSize(size / 1.5f);
 
         errorPaint.setColor(Color.YELLOW);
         errorPaint.setStyle(Paint.Style.STROKE);
@@ -63,7 +63,7 @@ public class Die {
     public void draw(Canvas canvas) {
         canvas.drawRect(destinationRect, backgroundPaint);
         canvas.drawText(Integer.toString(currentNumber),
-            destinationRect.centerX(), destinationRect.centerY(),
+            destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2) ,
             numberPaint);
 
         if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus ja tekstit resource stringeiksi.
@@ -71,7 +71,7 @@ public class Die {
                     destinationRect.centerX(), destinationRect.bottom + errorPaint.getTextSize(),
                     errorPaint);
             canvas.drawText("Using pseudo random numbers!",
-                destinationRect.centerX(), destinationRect.bottom + errorPaint.getTextSize() * 2,
+                destinationRect.centerX(), destinationRect.bottom + (errorPaint.getTextSize() * 2f),
                 errorPaint);
         }
     }

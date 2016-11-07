@@ -10,6 +10,7 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + Tee JSONParser-luokka, ja sen parseamis-toiminto
 + Toteuta random-lukujen hakeminen netistä http-kutsulla
 + Hae random-luvut Javan Math.random() funktiolla jos serveriin ei saada yhteyttä
++ Nopan grafiikat hyväksyttävän näköisiksi
 
 - Soita nopanpyörimisääni kun noppaa pyöritetään
 - Tärisytä puhelinta kun noppaa pyöritetään
