@@ -37,13 +37,13 @@ public class JSONParser {
             this.callbackInterface = callbackInterface;
         }
 
+        //Palauttaa null jos mikään menee pieleen
         @Override
         protected JSONObject doInBackground(String[] params) {
             final String urlString = params[0];
-
-            //Haetaan data netistä
             URL url;
 
+            //Haetaan netistä json-data inputStreamiin
             try {
                 url = new URL(urlString);
                 HttpsURLConnection httpsURLConnection = (HttpsURLConnection)url.openConnection();
@@ -54,6 +54,7 @@ public class JSONParser {
                 return null;
             }
 
+            //inputStream -> String
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(
                         inputStream, "iso-8859-1"), 8);
@@ -69,7 +70,7 @@ public class JSONParser {
                 return null;
             }
 
-            // try parse the string to a JSON object
+            //String -> JSONObject
             try {
                 jsonObject = new JSONObject(jsonString);
             } catch (JSONException exception) {
@@ -78,21 +79,6 @@ public class JSONParser {
             }
 
             return jsonObject;
-
-/*
-            //Testi JSON local String->
-            final String onSuccess = "{\"type\":\"uint8\",\"length\":10,\"data\":[48,223,28,238,228,72,151,179,168,2],\"success\":true}";
-            final String onFailure = "{\"success\":false}";
-
-            try {
-                jsonObject = new JSONObject(onSuccess);
-            }
-            catch(JSONException e) {
-                Log.e("JSON Parser", "Error parsing data " + e.toString());
-            }
-            return jsonObject;
-            //<-Testi JSON local String
-*/
         }
 
         protected void onPostExecute(JSONObject result) {

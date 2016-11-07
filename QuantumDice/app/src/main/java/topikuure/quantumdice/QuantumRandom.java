@@ -25,13 +25,13 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
             buffer = new int[size];
         }
 
+        //Ei tarkista onko topIndex liian suuri
         public void push(int value) {
-            //Ei tarkista onko topIndex liian suuri
             buffer[++topIndex] = value;
         }
 
+        //Palauttaa alimman luvun jos pino on tyhjä
         public int pop() {
-            //Palauttaa alimman luvun jos pino on tyhjä
             if(topIndex < 0) topIndex = 0;
             return buffer[topIndex--];
         }
@@ -53,21 +53,19 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
     private IntegerStack currentStack = stack1;
 
     public QuantumRandom() {
+        //Optimoinnin paikka. Molemmat stackit voisi täyttää aluksi yhdellä http-kutsulla (fillBothStacks-metodi tjsp.)
         fillBackStack();
         swapStacks();
         fillBackStack();
     }
 
-    public int getRandomNumber(int min, int max) {
+    public int getRandomNumber(int min, int max) throws Exception {
         if(currentStack.getSize() <= 0) {
             swapStacks();
             fillBackStack();
+
+            if(currentStack.getSize() <= 0) throw new Exception("Empty stacks");
         }
-
-        //Testipalautus
-        //return currentStack.pop();
-
-        //Oikea palautus
         return (currentStack.pop() % (max - min + 1)) + min;
     }
 
