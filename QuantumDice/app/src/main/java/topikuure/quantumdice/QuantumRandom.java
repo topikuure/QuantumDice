@@ -15,9 +15,9 @@ import org.json.JSONObject;
  * Kun käytössä oleva pino tyhjenee, vaihdetaan toinen pino sen paikalle,
  * ja haetaan tyhjään pinoon uudet luvut omassa säikeessä.
  */
-public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
+public class QuantumRandom implements JSONParser.CallbackInterface {
 
-    public interface CallbackInterfacce {
+    public interface CallbackInterface {
         void onInitialized(boolean success);
     }
 
@@ -60,13 +60,13 @@ public class QuantumRandom implements JSONParser.JSONParserCallbackInterface {
     private IntegerStack stack2 = new IntegerStack(2, STACK_SIZE);
     private IntegerStack currentStack = stack1;
 
-    public QuantumRandom(final CallbackInterfacce callbackInterface) {
+    public QuantumRandom(final CallbackInterface callbackInterface) {
         Log.d("QuantumRandom", "constructor");
 
         String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + Integer.toString(STACK_SIZE * 2) + "&type=uint8";
 
         JSONParser jsonParser = new JSONParser();
-        jsonParser.getJSONFromUrl(url, new JSONParser.JSONParserCallbackInterface() {
+        jsonParser.getJSONFromUrl(url, new JSONParser.CallbackInterface() {
             @Override
             public void onCallBack(JSONObject jsonObject) {
                 try {

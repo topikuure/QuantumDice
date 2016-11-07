@@ -16,7 +16,7 @@ import java.util.Random;
  * Noppa piirtää myös ilmoituksen jos ei onnistuttu hakemaan kvanttifysiikan lakien avulla generoituja randomlukuja netistä.
  * Tällöin noppa hakee luvun Random-luokasta, joka generoi pseudorandomeja lukuja.
  */
-public class Die implements QuantumRandom.CallbackInterfacce {
+public class Die implements QuantumRandom.CallbackInterface {
 
     private static final Object lock = new Object();
     private boolean isInitialized = false;

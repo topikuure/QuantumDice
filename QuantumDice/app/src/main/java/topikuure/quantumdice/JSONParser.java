@@ -17,7 +17,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class JSONParser {
 
-    public interface JSONParserCallbackInterface {
+    public interface CallbackInterface {
         void onCallBack(JSONObject json);
     }
 
@@ -25,15 +25,15 @@ public class JSONParser {
     static JSONObject jsonObject = null;
     static String jsonString = "";
 
-    public void getJSONFromUrl(String url, JSONParserCallbackInterface callbackInterface) {
+    public void getJSONFromUrl(String url, CallbackInterface callbackInterface) {
         new GetJSONFromUrlTask(callbackInterface).execute(url);
     }
 
     private class GetJSONFromUrlTask extends AsyncTask<String, Void, JSONObject> {
 
-        private JSONParserCallbackInterface callbackInterface;
+        private CallbackInterface callbackInterface;
 
-        public GetJSONFromUrlTask(JSONParserCallbackInterface callbackInterface) {
+        public GetJSONFromUrlTask(CallbackInterface callbackInterface) {
             this.callbackInterface = callbackInterface;
         }
 
