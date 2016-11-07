@@ -17,10 +17,6 @@ import org.json.JSONObject;
  */
 public class QuantumRandom implements JSONParser.CallbackInterface {
 
-    public interface CallbackInterface {
-        void onInitialized(boolean success);
-    }
-
     private class IntegerStack {
 
         public int id;
