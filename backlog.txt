@@ -16,7 +16,8 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + QuantumRandom-luokan alustus sillon kun app käynnistetään ensimmäisen kerran eikä joka kerta kun tullaan työpöydältä takaisin
 
 - Soita nopanpyörimisääni kun noppaa pyöritetään
-- Näytä jotain visuaalisesti kun noppaa pyöritetään
-- Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers jne.)
+- Noppaan pyörimisanimaatio
+- Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers jne.), jotta voidaan tukea useita kieliä
 - Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
 - Anna käyttäjän valita montako/minkälaisia noppia halutaan pyörittää
+- Sovelluksen käynnistämiskuvake hienommaksi
