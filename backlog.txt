@@ -15,6 +15,7 @@ Tehtävät ovat prioriteettijärjestyksessä ylhäältä alas (Ylhäällä korkeampi prior
 + Näytä latausruutu kun QuantumRandom täyttää pinonsa ensimmäistä kertaa
 + QuantumRandom-luokan alustus sillon kun app käynnistetään ensimmäisen kerran eikä joka kerta kun tullaan työpöydältä takaisin
 
+- Näytä jotain visuaalisesti kun noppaa pyöritetään
 - Soita nopanpyörimisääni kun noppaa pyöritetään
 - Käyttäjän näkemät ilmoitukset resource stringiksi (Using pseudo random numbers jne.)
 - Toteuta kuutionopan lisäksi muita noppia(d4, d8, d10 jne.)
