@@ -68,15 +68,18 @@ public class Die {
     }
 
     public void draw(Canvas canvas) {
+        final float numberCenterY = destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2);
+
+        //Järkevämpi paikka latausruudun piirtämisessä olisi MainView.onDraw-metodissa
         if(!quantumRandom.isInitialized()) {
             canvas.drawText("LOADING...",
-                destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
+                destinationRect.centerX(), numberCenterY,
                 textPaint);
             return;
         }
         canvas.drawRect(destinationRect, backgroundPaint);
         canvas.drawText(Integer.toString(currentNumber),
-            destinationRect.centerX(), destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2),
+            destinationRect.centerX(), numberCenterY,
             numberPaint);
 
         if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus(?) ja tekstit resource stringeiksi.

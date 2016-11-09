@@ -24,7 +24,8 @@ public class MainView extends View implements View.OnClickListener {
 
         @Override
         protected Void doInBackground(Void[] params) {
-            while(!quantumRandom.isInitialized()) {}
+            while(!quantumRandom.isInitialized()) {
+            }
             return null;
         }
 
@@ -52,6 +53,7 @@ public class MainView extends View implements View.OnClickListener {
 
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
+        //TODO Ohjelma jää latausruutuun jos quantumRandomin alustus netin kautta epäonnistuu
         if(!quantumRandom.isInitialized()) new QuantumRandomInitializationTask(quantumRandom, this).execute();
         else onQuantumRandomInitialized();
     }

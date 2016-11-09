@@ -29,7 +29,7 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
             buffer = new int[size];
         }
 
-        //Ei tarkista onko topIndex liian suuri
+        //Ei tarkista onko pino täynnä
         public void push(int value) {
             buffer[++topIndex] = value;
         }
