@@ -50,7 +50,7 @@ public class Die {
         textPaint.setStyle(Paint.Style.STROKE);
         textPaint.setTextAlign(Paint.Align.CENTER);
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize(size / 14f);
+        textPaint.setTextSize(size / 18f);
 
         destinationRect = new RectF(x, y, x + size, y + size);
     }
@@ -80,10 +80,10 @@ public class Die {
             numberPaint);
 
         if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus(?) ja tekstit resource stringeiksi.
-            canvas.drawText("Out of quantum random numbers",
+            canvas.drawText("Could not get quantum random numbers",
                     destinationRect.centerX(), destinationRect.bottom + textPaint.getTextSize(),
                     textPaint);
-            canvas.drawText("Using pseudo random numbers!",
+            canvas.drawText("Using pseudo random numbers instead!",
                 destinationRect.centerX(), destinationRect.bottom + (textPaint.getTextSize() * 2f),
                     textPaint);
         }
