@@ -3,6 +3,7 @@ package topikuure.quantumdice;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Vibrator;
 import android.view.View;
@@ -38,9 +39,13 @@ public class MainView extends View implements View.OnClickListener {
     private Die die;
     private Vibrator vibrator;
     private boolean vibratorIsOn = false;
+    private QuantumRandom quantumRandom;
+    private Paint textPaint = new Paint();
 
     public MainView(Context context, QuantumRandom quantumRandom, int screenWidth, int screenHeight) {
         super(context);
+
+        this.quantumRandom = quantumRandom;
 
         setOnClickListener(this);
 
@@ -52,6 +57,12 @@ public class MainView extends View implements View.OnClickListener {
         die = new Die(quantumRandom, 40f, 40f, dieSize);
 
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+
+        textPaint.setColor(Color.YELLOW);
+        textPaint.setStyle(Paint.Style.STROKE);
+        textPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextSize(dieSize / 18f);
 
         //TODO Ohjelma jää latausruutuun jos quantumRandomin alustus netin kautta epäonnistuu
         if(!quantumRandom.isInitialized()) new QuantumRandomInitializationTask(quantumRandom, this).execute();
@@ -68,7 +79,25 @@ public class MainView extends View implements View.OnClickListener {
     @Override
     public void onDraw(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
-        die.draw(canvas);
+
+        if(quantumRandom.isInitialized()) {
+            die.draw(canvas);
+            if(!die.isUsingQuantumRandom()) drawNotUsingQuantumRandomMessage(canvas);
+        }
+        else  drawLoadingScreen(canvas);
+    }
+
+    private void drawLoadingScreen(Canvas canvas) {
+        canvas.drawText("LOADING...", die.destinationRect.centerX(), die.getNumberCenterY(), textPaint);
+    }
+
+    private void drawNotUsingQuantumRandomMessage(Canvas canvas) {
+        canvas.drawText("Could not get quantum random numbers",
+                die.destinationRect.centerX(), die.destinationRect.bottom + textPaint.getTextSize(),
+                textPaint);
+        canvas.drawText("Using pseudo random numbers instead!",
+                die.destinationRect.centerX(), die.destinationRect.bottom + (textPaint.getTextSize() * 2f),
+                textPaint);
     }
 
     void onQuantumRandomInitialized() {

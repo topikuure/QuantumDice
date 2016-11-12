@@ -23,10 +23,9 @@ public class Die {
 
     private Paint backgroundPaint = new Paint();
     private Paint numberPaint = new Paint();
-    private Paint textPaint = new Paint();
 
     private boolean usingQuantumRandom = true;
-    private RectF destinationRect;
+    public RectF destinationRect;
 
     public Die(QuantumRandom quantumRandom, float x, float y, float size) {
         this.quantumRandom = quantumRandom;
@@ -46,12 +45,6 @@ public class Die {
         numberPaint.setAntiAlias(true);
         numberPaint.setTextSize(size / 1.5f);
 
-        textPaint.setColor(Color.YELLOW);
-        textPaint.setStyle(Paint.Style.STROKE);
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        textPaint.setAntiAlias(true);
-        textPaint.setTextSize(size / 18f);
-
         destinationRect = new RectF(x, y, x + size, y + size);
     }
 
@@ -67,28 +60,19 @@ public class Die {
         }
     }
 
-    public void draw(Canvas canvas) {
-        final float numberCenterY = destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2);
+    public boolean isUsingQuantumRandom() {
+        return usingQuantumRandom;
+    }
 
-        //Järkevämpi paikka latausruudun piirtämisessä olisi MainView.onDraw-metodissa
-        if(!quantumRandom.isInitialized()) {
-            canvas.drawText("LOADING...",
-                destinationRect.centerX(), numberCenterY,
-                textPaint);
-            return;
-        }
+    public float getNumberCenterY() {
+        return destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2);
+
+    }
+
+    public void draw(Canvas canvas) {
         canvas.drawRect(destinationRect, backgroundPaint);
         canvas.drawText(Integer.toString(currentNumber),
-            destinationRect.centerX(), numberCenterY,
+            destinationRect.centerX(), getNumberCenterY(),
             numberPaint);
-
-        if(!usingQuantumRandom) {//TODO järkevämpi virheilmoitus(?) ja tekstit resource stringeiksi.
-            canvas.drawText("Could not get quantum random numbers",
-                    destinationRect.centerX(), destinationRect.bottom + textPaint.getTextSize(),
-                    textPaint);
-            canvas.drawText("Using pseudo random numbers instead!",
-                destinationRect.centerX(), destinationRect.bottom + (textPaint.getTextSize() * 2f),
-                    textPaint);
-        }
     }
 }
