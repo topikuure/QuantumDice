@@ -79,11 +79,9 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
                         }
                     } else {
                         Log.e("QuantumRandom", "JSON call failed");
-                        return;
                     }
                 } catch (Exception exception) {
                     exception.printStackTrace();
-                    return;
                 }
                 synchronized (lock) {
                     isInitialized = true;

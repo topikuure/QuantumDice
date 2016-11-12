@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.os.Vibrator;
 import android.view.View;
 
@@ -15,6 +16,8 @@ public class MainView extends View implements View.OnClickListener {
 
     private class QuantumRandomInitializationTask extends AsyncTask<Void, Void, Void> {
 
+        private final static int TIME_OUT = 15000;
+        private int time = 0;
         private QuantumRandom quantumRandom;
         private MainView mainView;
 
@@ -26,6 +29,8 @@ public class MainView extends View implements View.OnClickListener {
         @Override
         protected Void doInBackground(Void[] params) {
             while(!quantumRandom.isInitialized()) {
+                SystemClock.sleep(1);
+                if(time++ >= TIME_OUT) return null;
             }
             return null;
         }
@@ -88,11 +93,16 @@ public class MainView extends View implements View.OnClickListener {
     }
 
     private void drawLoadingScreen(Canvas canvas) {
-        canvas.drawText("LOADING...", die.destinationRect.centerX(), die.getNumberCenterY(), textPaint);
+        canvas.drawText("Loading random numbers from",
+            die.destinationRect.centerX(), die.destinationRect.centerY(),
+            textPaint);
+        canvas.drawText("https://qrng.anu.edu.au",
+            die.destinationRect.centerX(), die.destinationRect.centerY() + (textPaint.getTextSize() * 2f),
+            textPaint);
     }
 
     private void drawNotUsingQuantumRandomMessage(Canvas canvas) {
-        canvas.drawText("Could not get quantum random numbers",
+        canvas.drawText("Could not load quantum random numbers",
                 die.destinationRect.centerX(), die.destinationRect.bottom + textPaint.getTextSize(),
                 textPaint);
         canvas.drawText("Using pseudo random numbers instead!",
