@@ -58,10 +58,11 @@ public class Die {
         }
     }
 
-    public boolean isUsingQuantumRandom() {
+    public boolean usingQuantumRandom() {
         return usingQuantumRandom;
     }
 
+    //Palauttaa Y-koordinaatin, mihin teksti piirretään, jos se halutaan piirtää nopan keskelle
     public float getNumberCenterY() {
         return destinationRect.centerY() - ((numberPaint.descent() + numberPaint.ascent()) / 2);
 

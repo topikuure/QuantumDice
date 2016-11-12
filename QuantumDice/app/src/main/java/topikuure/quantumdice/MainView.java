@@ -16,7 +16,7 @@ public class MainView extends View implements View.OnClickListener {
 
     private class QuantumRandomInitializationTask extends AsyncTask<Void, Void, Void> {
 
-        private final static int TIME_OUT = 15000;
+        private final static int TIME_OUT = 15000;//ms
         private int time = 0;
         private QuantumRandom quantumRandom;
         private MainView mainView;
@@ -69,7 +69,6 @@ public class MainView extends View implements View.OnClickListener {
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(dieSize / 18f);
 
-        //TODO Ohjelma jää latausruutuun jos quantumRandomin alustus netin kautta epäonnistuu
         if(!quantumRandom.isInitialized()) new QuantumRandomInitializationTask(quantumRandom, this).execute();
         else onQuantumRandomInitialized();
     }
@@ -87,7 +86,7 @@ public class MainView extends View implements View.OnClickListener {
 
         if(quantumRandom.isInitialized()) {
             die.draw(canvas);
-            if(!die.isUsingQuantumRandom()) drawNotUsingQuantumRandomMessage(canvas);
+            if(!die.usingQuantumRandom()) drawNotUsingQuantumRandomMessage(canvas);
         }
         else  drawLoadingScreen(canvas);
     }
