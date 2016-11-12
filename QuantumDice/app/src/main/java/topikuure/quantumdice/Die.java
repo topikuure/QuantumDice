@@ -18,13 +18,11 @@ public class Die {
 
     private int sides = 6;
     private int currentNumber;
-
     private QuantumRandom quantumRandom;
-
+    private boolean usingQuantumRandom = true;
     private Paint backgroundPaint = new Paint();
     private Paint numberPaint = new Paint();
 
-    private boolean usingQuantumRandom = true;
     public RectF destinationRect;
 
     public Die(QuantumRandom quantumRandom, float x, float y, float size) {

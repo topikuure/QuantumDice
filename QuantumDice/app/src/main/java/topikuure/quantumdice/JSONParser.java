@@ -22,9 +22,9 @@ public class JSONParser {
         void onParsed(JSONObject json);
     }
 
-    static InputStream inputStream = null;
-    static JSONObject jsonObject = null;
-    static String jsonString = "";
+    private static InputStream inputStream = null;
+    private static JSONObject jsonObject = null;
+    private static String jsonString = "";
 
     public void getJSONFromUrl(String url, CallbackInterface callbackInterface) {
         new GetJSONFromUrlTask(callbackInterface).execute(url);

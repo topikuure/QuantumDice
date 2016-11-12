@@ -19,10 +19,10 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
 
     private class IntegerStack {
 
-        public int id;
-
         private int topIndex = -1;
         private int buffer[];
+
+        public int id;
 
         private IntegerStack(int id, int size) {
             this.id = id;
@@ -49,12 +49,11 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
         }
     }
 
-    private static final Object lock = new Object();
-    private boolean isInitialized = false;
-
     private static final int STACK_SIZE = 10;
     private static final String arrayLength = Integer.toString(STACK_SIZE);
+    private static final Object lock = new Object();
 
+    private boolean isInitialized = false;
     private IntegerStack stack1 = new IntegerStack(1, STACK_SIZE);
     private IntegerStack stack2 = new IntegerStack(2, STACK_SIZE);
     private IntegerStack currentStack = stack1;
