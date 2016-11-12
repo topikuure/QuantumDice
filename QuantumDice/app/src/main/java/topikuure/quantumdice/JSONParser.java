@@ -4,12 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.os.AsyncTask;
-
 import javax.net.ssl.HttpsURLConnection;
 
 /**
@@ -20,14 +17,6 @@ public class JSONParser {
     public interface CallbackInterface {
 
         void onParsed(JSONObject json);
-    }
-
-    private static InputStream inputStream = null;
-    private static JSONObject jsonObject = null;
-    private static String jsonString = "";
-
-    public void getJSONFromUrl(String url, CallbackInterface callbackInterface) {
-        new GetJSONFromUrlTask(callbackInterface).execute(url);
     }
 
     private class GetJSONFromUrlTask extends AsyncTask<String, Void, JSONObject> {
@@ -41,6 +30,10 @@ public class JSONParser {
         //Palauttaa null jos mikään menee pieleen
         @Override
         protected JSONObject doInBackground(String[] params) {
+            InputStream inputStream;
+            JSONObject jsonObject;
+            String jsonString;
+
             final String urlString = params[0];
             URL url;
 
@@ -86,5 +79,9 @@ public class JSONParser {
         protected void onPostExecute(JSONObject result) {
             callbackInterface.onParsed(result);
         }
+    }
+
+    public void getJSONFromUrl(String url, CallbackInterface callbackInterface) {
+        new GetJSONFromUrlTask(callbackInterface).execute(url);
     }
 }

@@ -110,7 +110,7 @@ public class MainView extends View implements View.OnClickListener {
                 textPaint);
     }
 
-    void onQuantumRandomInitialized() {
+    private void onQuantumRandomInitialized() {
         vibratorIsOn = true;
         die.roll();
         invalidate();

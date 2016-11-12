@@ -1,7 +1,6 @@
 package topikuure.quantumdice;
 
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
