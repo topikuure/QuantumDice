@@ -16,7 +16,7 @@ public class JSONParser {
 
     public interface CallbackInterface {
 
-        void onParsed(JSONObject json);
+        void onParsed(JSONObject jsonObject);
     }
 
     private class GetJSONFromUrlTask extends AsyncTask<String, Void, JSONObject> {

@@ -7,6 +7,8 @@ import android.app.Application;
  */
 public class QuantumDiceApplication extends Application {
 
+    //quantumRandom-instanssi halutaan pitää elossa mahdollisimman kauan koska sen alustus netin
+    //kautta kestää kauan
     public QuantumRandom quantumRandom;
 
     @Override

@@ -11,6 +11,9 @@ import android.view.View;
 
 /**
  * Created by Topi on 06/11/2016.
+ *
+ * MainView-luokassa piirretään ohjelman grafiikat ja pyöritetään noppaa kun puhelimen ruutua
+ * painetaan.
  */
 public class MainView extends View implements View.OnClickListener {
 
@@ -59,7 +62,7 @@ public class MainView extends View implements View.OnClickListener {
         if(screenWidth <= screenHeight) dieSize = (float)(screenWidth - 80);
         else dieSize = (float)(screenHeight - 80);
 
-        die = new Die(quantumRandom, 40f, 40f, dieSize);
+        die = new Die(this, quantumRandom, 40f, 40f, dieSize);
 
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -77,7 +80,6 @@ public class MainView extends View implements View.OnClickListener {
     public void onClick(View view) {
         if(vibratorIsOn) vibrator.vibrate(80);
         die.roll();
-        invalidate();
     }
 
     @Override
@@ -96,7 +98,7 @@ public class MainView extends View implements View.OnClickListener {
             die.destinationRect.centerX(), die.destinationRect.centerY(),
             textPaint);
         canvas.drawText("https://qrng.anu.edu.au",
-            die.destinationRect.centerX(), die.destinationRect.centerY() + (textPaint.getTextSize() * 2f),
+            die.destinationRect.centerX(), die.destinationRect.centerY() + textPaint.getTextSize(),
             textPaint);
     }
 
@@ -112,6 +114,5 @@ public class MainView extends View implements View.OnClickListener {
     private void onQuantumRandomInitialized() {
         vibratorIsOn = true;
         die.roll();
-        invalidate();
     }
 }

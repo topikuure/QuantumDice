@@ -7,7 +7,7 @@ import org.json.JSONObject;
 /**
  * Created by Topi on 06/11/2016.
  *
- * QuantumRandom-luokka käyttää QRNG@ANU JSON API -rajapintaa
+ * QuantumRandom-luokka käyttää QRNG@ANU JSON APIa:
  * https://qrng.anu.edu.au/API/api-demo.php
  *
  * QuantumStack hakee kahteen pinoon random-lukuja JSON-APIn avulla.
