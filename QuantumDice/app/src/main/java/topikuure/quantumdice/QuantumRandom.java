@@ -48,7 +48,7 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
         }
     }
 
-    private static final int STACK_SIZE = 10;
+    private static final int STACK_SIZE = 20;
     private static final String arrayLength = Integer.toString(STACK_SIZE);
     private static final Object lock = new Object();
 
