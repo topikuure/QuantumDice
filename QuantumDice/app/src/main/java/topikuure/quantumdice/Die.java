@@ -30,7 +30,7 @@ public class Die {
 
         @Override
         public void run() {
-            synchronized (lock) {
+            synchronized (LOCK) {
                 die.rolling = true;
                 view.postInvalidate();
             }
@@ -39,28 +39,28 @@ public class Die {
             }
             catch (InterruptedException exception) {
             }
-            synchronized (lock) {
+            synchronized (LOCK) {
                 die.rolling = false;
                 view.postInvalidate();
             }
         }
     }
 
-    private final static Object lock = new Object();
+    private final static Object LOCK = new Object();
 
+    private View parentView;
     private int sides = 6;
     private int currentNumber;
     private boolean rolling = false;
     private QuantumRandom quantumRandom;
     private boolean usingQuantumRandom = true;
-    private View view;
     private Paint backgroundPaint = new Paint();
     private Paint numberPaint = new Paint();
 
     public RectF destinationRect;
 
-    public Die(View view, QuantumRandom quantumRandom, float x, float y, float size) {
-        this.view = view;
+    public Die(View parentView, QuantumRandom quantumRandom, float x, float y, float size) {
+        this.parentView = parentView;
         this.quantumRandom = quantumRandom;
 
         backgroundPaint.setColor(Color.WHITE);
@@ -82,9 +82,9 @@ public class Die {
     }
 
     public void roll() {
-        new Thread(new RollAnimation(view, this)).start();
+        new Thread(new RollAnimation(parentView, this)).start();
 
-        synchronized (lock) {
+        synchronized (LOCK) {
             rolling = true;
         }
         try {
@@ -111,7 +111,7 @@ public class Die {
     public void draw(Canvas canvas) {
         canvas.drawRect(destinationRect, backgroundPaint);
 
-        synchronized (lock) {
+        synchronized (LOCK) {
             if(rolling) return;
         }
         canvas.drawText(Integer.toString(currentNumber),

@@ -49,8 +49,8 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
     }
 
     private static final int STACK_SIZE = 20;
-    private static final String arrayLength = Integer.toString(STACK_SIZE);
-    private static final Object lock = new Object();
+    private static final String ARRAY_LENGTH_STRING = Integer.toString(STACK_SIZE);
+    private static final Object LOCK = new Object();
 
     private boolean isInitialized = false;
     private IntegerStack stack1 = new IntegerStack(1, STACK_SIZE);
@@ -82,15 +82,31 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
                 } catch (Exception exception) {
                     exception.printStackTrace();
                 }
-                synchronized (lock) {
+                synchronized (LOCK) {
                     isInitialized = true;
                 }
             }
         });
     }
 
+    private void fillBackStack() {
+        Log.d("QuantumRandom", "fillBackStack");
+
+        String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + ARRAY_LENGTH_STRING + "&type=uint8";
+
+        JSONParser jsonParser = new JSONParser();
+        jsonParser.getJSONFromUrl(url, this);
+    }
+
+    private void swapStacks() {
+        Log.d("QuantumRandom", "swapStacks");
+
+        if(currentStack.id == stack1.id) currentStack = stack2;
+        else if(currentStack.id == stack2.id) currentStack = stack1;
+    }
+
     public boolean isInitialized() {
-        synchronized (lock) {
+        synchronized (LOCK) {
             return isInitialized;
         }
     }
@@ -103,22 +119,6 @@ public class QuantumRandom implements JSONParser.CallbackInterface {
             if(currentStack.getSize() <= 0) throw new Exception("Empty stacks");
         }
         return (currentStack.pop() % (max - min + 1)) + min;
-    }
-
-    private void fillBackStack() {
-        Log.d("QuantumRandom", "fillBackStack");
-
-        String url = "https://qrng.anu.edu.au/API/jsonI.php?length=" + arrayLength + "&type=uint8";
-
-        JSONParser jsonParser = new JSONParser();
-        jsonParser.getJSONFromUrl(url, this);
-    }
-
-    private void swapStacks() {
-        Log.d("QuantumRandom", "swapStacks");
-
-        if(currentStack.id == stack1.id) currentStack = stack2;
-        else if(currentStack.id == stack2.id) currentStack = stack1;
     }
 
     @Override

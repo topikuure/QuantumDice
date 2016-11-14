@@ -55,15 +55,12 @@ public class MainView extends View implements View.OnClickListener {
 
         this.quantumRandom = quantumRandom;
 
-        setOnClickListener(this);
-
         float dieSize;
 
         if(screenWidth <= screenHeight) dieSize = (float)(screenWidth - 80);
         else dieSize = (float)(screenHeight - 80);
 
         die = new Die(this, quantumRandom, 40f, 40f, dieSize);
-
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 
         textPaint.setColor(Color.YELLOW);
@@ -74,23 +71,8 @@ public class MainView extends View implements View.OnClickListener {
 
         if(!quantumRandom.isInitialized()) new QuantumRandomInitializationTask(quantumRandom, this).execute();
         else onQuantumRandomInitialized();
-    }
 
-    @Override
-    public void onClick(View view) {
-        if(vibratorIsOn) vibrator.vibrate(80);
-        die.roll();
-    }
-
-    @Override
-    public void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.BLACK);
-
-        if(quantumRandom.isInitialized()) {
-            die.draw(canvas);
-            if(!die.usingQuantumRandom()) drawNotUsingQuantumRandomMessage(canvas);
-        }
-        else  drawLoadingScreen(canvas);
+        setOnClickListener(this);
     }
 
     private void drawLoadingScreen(Canvas canvas) {
@@ -114,5 +96,22 @@ public class MainView extends View implements View.OnClickListener {
     private void onQuantumRandomInitialized() {
         vibratorIsOn = true;
         die.roll();
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(vibratorIsOn) vibrator.vibrate(80);
+        die.roll();
+    }
+
+    @Override
+    public void onDraw(Canvas canvas) {
+        canvas.drawColor(Color.BLACK);
+
+        if(quantumRandom.isInitialized()) {
+            die.draw(canvas);
+            if(!die.usingQuantumRandom()) drawNotUsingQuantumRandomMessage(canvas);
+        }
+        else  drawLoadingScreen(canvas);
     }
 }
